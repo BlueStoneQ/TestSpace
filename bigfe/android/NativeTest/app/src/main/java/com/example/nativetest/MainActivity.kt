@@ -18,6 +18,8 @@ import android.webkit.WebView
 import android.webkit.WebSettings
 import android.util.Log
 
+import com.example.nativetest.screen.MainScreen
+
 class MainActivity : ComponentActivity() {
     private lateinit var webview: WebView
 
@@ -31,7 +33,16 @@ class MainActivity : ComponentActivity() {
         val webSettings: WebSettings = webview.settings
         webSettings.javaScriptEnabled = true
 
-        loadRemoteHtml()
+        setContent {
+            MainScreen(
+                onWebviewLoadRemoteUrl = ::loadRemoteHtml,
+                onWebviewLoadResLocalUrl = ::loadResLocalHtml
+            )
+        }
+
+//        loadRemoteHtml()
+//        loadResLocalHtml()
+
 //        setContent {
 //            NativeTestTheme {
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -55,8 +66,16 @@ class MainActivity : ComponentActivity() {
 
     private fun loadRemoteHtml() {
         val remoteUrl = "https://www.baidu.com"
+        setContentView(webview)
         webview.loadUrl(remoteUrl)
     }
+
+    private fun loadResLocalHtml() {
+        val localUrl = "file:///android_asset/local.html"
+        webview.loadUrl(localUrl)
+    }
+
+    private fun loadDeviceLocalHtml() {}
 }
 
 @Composable
