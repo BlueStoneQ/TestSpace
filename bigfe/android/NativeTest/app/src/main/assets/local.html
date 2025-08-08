@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>这是项目本地的 HTML</h1>
-</body>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>test</title>
+    </head>
+    <body>
+    <h5>这是项目本地的 HTML</h5>
+    <div id="btn1">点击弹出NativeToast</div>
+    <script>
+        (() => {
+            const btnEl1 = document.getElementById("btn1");
+            btnEl1.addEventListener('click', function() {
+                window.androidBridge.showToast();
+            });
+        })()
+    </script>
+    </body>
 </html>
