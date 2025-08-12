@@ -14,7 +14,7 @@ import android.webkit.WebSettings
 import android.util.Log
 
 import com.example.nativetest.screen.MainScreen
-import com.example.nativetest.JSBridge.JsBridge
+import com.example.nativetest.jsBridge.JsBridge
 
 class MainActivity : ComponentActivity() {
     private lateinit var webview: WebView
@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
 
     private fun initJsBridge() {
         jsBridge = JsBridge(this, webview)
-        webview.addJavascriptInterface(jsBridge, "androidBridge")
+        jsBridge.init()
     }
 
     private fun initContent() {
