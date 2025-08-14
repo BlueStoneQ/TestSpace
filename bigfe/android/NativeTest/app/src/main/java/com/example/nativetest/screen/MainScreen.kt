@@ -12,6 +12,9 @@ fun MainScreen(
     onWebviewLoadRemoteUrl: () -> Unit,
     onWebviewLoadResLocalUrl: () -> Unit,
     onJNICallSum: () -> Unit,
+    onJNICallStr: () -> Unit,
+    onJNICallArray: () -> Unit,
+    onJNICallObj: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -37,6 +40,30 @@ fun MainScreen(
             }
         ) {
             Text("jni:执行NativeUtils.calculateSum")
+        }
+
+        Button(
+            onClick = {
+                onJNICallStr()
+            }
+        ) {
+            Text("jni:执行NativeUtils.processString")
+        }
+
+        Button(
+            onClick = {
+                onJNICallArray()
+            }
+        ) {
+            Text("jni:执行NativeUtils.calculateAverage")
+        }
+
+        Button(
+            onClick = {
+                onJNICallObj()
+            }
+        ) {
+            Text("jni:执行NativeUtils.processUser")
         }
     }
 }

@@ -17,6 +17,7 @@ import android.util.Log
 import com.example.nativetest.screen.MainScreen
 import com.example.nativetest.jsBridge.JsBridge
 import com.example.nativetest.jni.NativeUtils
+import com.example.nativetest.jni.User
 
 const val TAG = "MainActivity"
 
@@ -63,6 +64,9 @@ class MainActivity : ComponentActivity() {
                         onWebviewLoadRemoteUrl = ::loadRemoteHtml,
                         onWebviewLoadResLocalUrl = ::loadResLocalHtml,
                         onJNICallSum = ::onJNICallSum,
+                        onJNICallStr = ::onJNICallStr,
+                        onJNICallArray = ::onJNICallArray,
+                        onJNICallObj = ::onJNICallObj,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -89,5 +93,23 @@ class MainActivity : ComponentActivity() {
     private fun onJNICallSum() {
         val res = NativeUtils.calculateSum(1, 2)
         Log.d(TAG, "onJNICallSum $res")
+    }
+
+    private fun onJNICallStr() {
+        val res = NativeUtils.processString("string from kotlin")
+        Log.d(TAG, "onJNICallStr $res")
+    }
+
+    private fun onJNICallArray() {
+        val intArray = intArrayOf(10, 20, 40, 50, 70, 100)
+        val res = NativeUtils.calculateAverage(intArray)
+        Log.d(TAG, "onJNICallArray $res")
+    }
+
+    private fun onJNICallObj() {
+        val user = User("OriginalName", 25)
+        Log.d(TAG, "processUser before: \n userName: ${user.name} \n, age: ${user.age}")
+        NativeUtils.processUser(user)
+        Log.d(TAG, "processUser after: \n userName: ${user.name} \n, age: ${user.age}")
     }
 }

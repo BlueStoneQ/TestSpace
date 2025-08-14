@@ -16,4 +16,12 @@ object NativeUtils {
     }
 
     external fun calculateSum(a: Int, b: Int): Int
+
+    external fun processString(input: String): String
+
+    external fun calculateAverage(intArray: IntArray): Float
+
+    external fun processUser(user: User)
 }
+
+data class User(var name: String, var age: Int)
