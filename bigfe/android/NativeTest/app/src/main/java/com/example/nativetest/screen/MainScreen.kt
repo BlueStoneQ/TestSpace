@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 fun MainScreen(
     onWebviewLoadRemoteUrl: () -> Unit,
     onWebviewLoadResLocalUrl: () -> Unit,
+    onJNICallSum: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -28,6 +29,14 @@ fun MainScreen(
             }
         ) {
             Text("webview加载项目本地url")
+        }
+
+        Button(
+            onClick = {
+                onJNICallSum()
+            }
+        ) {
+            Text("jni:执行NativeUtils.calculateSum")
         }
     }
 }

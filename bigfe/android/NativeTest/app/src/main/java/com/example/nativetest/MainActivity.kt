@@ -1,5 +1,6 @@
 package com.example.nativetest
 
+import android.nfc.Tag
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,9 @@ import android.util.Log
 
 import com.example.nativetest.screen.MainScreen
 import com.example.nativetest.jsBridge.JsBridge
+import com.example.nativetest.jni.NativeUtils
+
+const val TAG = "MainActivity"
 
 class MainActivity : ComponentActivity() {
     private lateinit var webview: WebView
@@ -23,7 +27,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        Log.d("[MainActivity]", "onCreate")
+        Log.d(TAG, "onCreate")
 
         initWebview()
         initJsBridge()
@@ -35,6 +39,9 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun initWebview() {
+        // enable debug, access the chrome://inspect/#devices in Chrome
+        WebView.setWebContentsDebuggingEnabled(true)
+
         webview = WebView(this)
         setContentView(webview)
 
@@ -55,6 +62,7 @@ class MainActivity : ComponentActivity() {
                     MainScreen(
                         onWebviewLoadRemoteUrl = ::loadRemoteHtml,
                         onWebviewLoadResLocalUrl = ::loadResLocalHtml,
+                        onJNICallSum = ::onJNICallSum,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -76,5 +84,10 @@ class MainActivity : ComponentActivity() {
 
     private fun loadDeviceLocalHtml() {
         // TODO:
+    }
+
+    private fun onJNICallSum() {
+        val res = NativeUtils.calculateSum(1, 2)
+        Log.d(TAG, "onJNICallSum $res")
     }
 }
