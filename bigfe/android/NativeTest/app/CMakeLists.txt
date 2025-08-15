@@ -21,3 +21,14 @@ add_library( # Specifies the name of the library.
 
 # Specifies a path to native header files.
 include_directories(src/main/cpp/include/)
+
+# 查找日志库
+find_library(
+        log-lib
+        log
+)
+
+target_link_libraries(
+        native-lib
+        ${log-lib}
+)

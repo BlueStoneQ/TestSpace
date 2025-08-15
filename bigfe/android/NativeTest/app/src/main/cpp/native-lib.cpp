@@ -2,8 +2,8 @@
 #include <string>
 #include <android/log.h>
 
-#define LOG_TAG "JNI_DEMO"
-#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define LOG_TAG "[Native-lib.cpp]"
+#define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__))
 
 extern "C" JNIEXPORT jint JNICALL
 Java_com_example_nativetest_jni_NativeUtils_calculateSum(
@@ -27,6 +27,8 @@ Java_com_example_nativetest_jni_NativeUtils_processString(
     }
 
     std::string processed = "[after JNI processed]" + std::string(cInput);
+
+    LOGD("this log from jni-cpp:Native-lib:processString");
 
     env->ReleaseStringUTFChars(input, cInput);
 
